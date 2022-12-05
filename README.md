@@ -5,3 +5,8 @@ A certain banking institution on Portugal, conducted a campaigns in order to off
 
 ### Problem Statements
 From said back story, we can conclude that the bank want to increase the efficiency of their campaign by targeting client with higher chance of success based on the feature from the data.
+
+### Goals
+In order solve the problems, as a Data Engineer out team are proposing some objective in order to pull of that goals as follows:
+1. Design end-to-end data pipeline with Lambda Architecture, so the bussiness intellegence/analyst could choose between whether to use batched data or real time streamed data.
+2. Create analytics dashboard based on data from the analytics database (data warehouse) and derive some insight from it.
