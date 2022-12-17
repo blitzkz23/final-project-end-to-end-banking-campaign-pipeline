@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
+from airflow.operators.bash_operator import BashOperator
 from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
 from datetime import datetime, timedelta
 
@@ -9,8 +10,8 @@ from datetime import datetime, timedelta
 spark_master = "spark://spark:7077"
 postgres_driver_jar = "/usr/local/spark/resources/jars/postgresql-9.4.1207.jar"
 
-movies_file = "/usr/local/spark/resources/data/movies.csv"
-ratings_file = "/usr/local/spark/resources/data/ratings.csv"
+fhv_trip_file = "/usr/local/spark/resources/data/fhv_tripdata_2021-02.parquet"
+
 postgres_db = "jdbc:postgresql://postgres/test"
 postgres_user = "test"
 postgres_pwd = "postgres"
@@ -40,30 +41,24 @@ dag = DAG(
 
 start = DummyOperator(task_id="start", dag=dag)
 
-spark_job_load_postgres = SparkSubmitOperator(
-    task_id="spark_job_load_postgres",
-    application="/usr/local/spark/app/load-postgres.py", # Spark application path created in airflow and spark cluster
-    name="load-postgres",
-    conn_id="spark_default",
-    verbose=1,
-    conf={"spark.master":spark_master},
-    application_args=[movies_file,ratings_file,postgres_db,postgres_user,postgres_pwd],
-    jars=postgres_driver_jar,
-    driver_class_path=postgres_driver_jar,
-    dag=dag)
+ingest_taxi_data = BashOperator(
+    task_id="ingest_taxi_data",
+    bash_command="bash /usr/local/spark/resources/bin/download_data.sh ",
+    dag=dag,
+)
 
-spark_job_read_postgres = SparkSubmitOperator(
-    task_id="spark_job_read_postgres",
-    application="/usr/local/spark/app/read-postgres.py", # Spark application path created in airflow and spark cluster
-    name="read-postgres",
-    conn_id="spark_default",
-    verbose=1,
-    conf={"spark.master":spark_master},
-    application_args=[postgres_db,postgres_user,postgres_pwd],
-    jars=postgres_driver_jar,
-    driver_class_path=postgres_driver_jar,
-    dag=dag)
+# spark_job_load_postgres = SparkSubmitOperator(
+#     task_id="spark_job_load_postgres",
+#     application="/usr/local/spark/app/load-postgres.py", # Spark application path created in airflow and spark cluster
+#     name="load-postgres",
+#     conn_id="spark_default",
+#     verbose=1,
+#     conf={"spark.master":spark_master},
+#     application_args=[movies_file,ratings_file,postgres_db,postgres_user,postgres_pwd],
+#     jars=postgres_driver_jar,
+#     driver_class_path=postgres_driver_jar,
+#     dag=dag)
 
 end = DummyOperator(task_id="end", dag=dag)
 
-start >> spark_job_load_postgres >> spark_job_read_postgres >> end
+start >> ingest_taxi_data >> end
