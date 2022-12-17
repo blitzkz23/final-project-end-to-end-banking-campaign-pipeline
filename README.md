@@ -18,3 +18,6 @@ In order solve the problems, as a Data Engineer our team are proposing some obje
 ### End-to-End Schema with Lambda Architecture
 
 ![](docs/end-to-end-schema.png)
+
+### Resources
+[Slides and Jobdesc](https://bit.ly/FinalProject-KuliDataWarrior)
