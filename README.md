@@ -21,3 +21,5 @@ In order solve the problems, as a Data Engineer our team are proposing some obje
 
 ### Resources
 [Slides and Jobdesc](https://bit.ly/FinalProject-KuliDataWarrior)
+
+### Nama Kelompok
