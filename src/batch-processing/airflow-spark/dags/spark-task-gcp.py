@@ -41,8 +41,8 @@ dag = DAG(
 
 start = DummyOperator(task_id="start", dag=dag)
 
-ingest_taxi_data = BashOperator(
-    task_id="ingest_taxi_data",
+ingest_bank_marketing_data = BashOperator(
+    task_id="ingest_bank_marketing_data",
     bash_command="bash /usr/local/spark/resources/bin/download_data.sh ",
     dag=dag,
 )
@@ -61,4 +61,4 @@ ingest_taxi_data = BashOperator(
 
 end = DummyOperator(task_id="end", dag=dag)
 
-start >> ingest_taxi_data >> end
+start >> ingest_bank_marketing_data >> end
