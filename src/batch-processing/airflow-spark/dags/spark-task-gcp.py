@@ -47,6 +47,12 @@ ingest_bank_marketing_data = BashOperator(
     dag=dag,
 )
 
+unzip_file = BashOperator(
+    task_id="unzip_file",
+    bash_command="bash /usr/local/spark/resources/bin/unzip_file.sh ",
+    dag=dag,
+)
+
 # spark_job_load_postgres = SparkSubmitOperator(
 #     task_id="spark_job_load_postgres",
 #     application="/usr/local/spark/app/load-postgres.py", # Spark application path created in airflow and spark cluster
@@ -61,4 +67,4 @@ ingest_bank_marketing_data = BashOperator(
 
 end = DummyOperator(task_id="end", dag=dag)
 
-start >> ingest_bank_marketing_data >> end
+start >> ingest_bank_marketing_data >> unzip_file >> end
