@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+    - name: staging
+      database: finalproject-kulidata
+      schema: rawdata
+      tables:
+        - name: bank_marketing
+
+
+models:
+  - name: stg_bank_marketing
+    description: staging layer for bank campaign data warehouses
