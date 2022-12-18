@@ -31,6 +31,7 @@ GOOGLE_APPLICATION_CREDENTIALS = "/home/.google/credentials/google_credentials.j
 AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT = "google-cloud-platform://?extra__google_cloud_platform__key_path=/home/.google/credentials/google_credentials.json"
 project_id = "finalproject-kulidata"
 bucket_name = "finalproject-kulidata"
+dataset_id = "rawdata"
 
 ###############################################
 # DAG Definition
@@ -106,15 +107,33 @@ local_to_gcs_task = PythonOperator(
 
 bigquery_external_table_task = BigQueryCreateExternalTableOperator(
     task_id="bigquery_external_table_task",
-    source_objects=[f"gs://{bucket_name}/raw/{dataset_csv_file}"],
-    destination_project_dataset_table="rawdata.bank_marketing",
     bucket=bucket_name,
-    table_resource={
-            "externalDataConfiguration": {
-                "sourceFormat": "CSV",
-                "sourceUris": [f"gs://{bucket_name}/raw/{dataset_csv_file}"],
-            },        
-    },
+    source_objects=[f"raw/{dataset_csv_file}"],
+    destination_project_dataset_table="finalproject-kulidata.rawdata.bank_marketing",
+    source_format="CSV",
+    schema_fields=[
+                    {"name": "age", "type": "INTEGER"},
+                    {"name": "job", "type": "STRING"},
+                    {"name": "marital", "type": "STRING"},
+                    {"name": "education", "type": "STRING"},
+                    {"name": "default", "type": "STRING"},
+                    {"name": "housing", "type": "STRING"},
+                    {"name": "loan", "type": "STRING"},
+                    {"name": "contact", "type": "STRING"},
+                    {"name": "month", "type": "STRING"},
+                    {"name": "day_of_week", "type": "STRING"},
+                    {"name": "duration", "type": "INTEGER"},
+                    {"name": "campaign", "type": "INTEGER"},
+                    {"name": "pdays", "type": "INTEGER"},
+                    {"name": "previous", "type": "INTEGER"},
+                    {"name": "poutcome", "type": "STRING"},
+                    {"name": "emp_var_rate", "type": "FLOAT"},
+                    {"name": "cons_price_idx", "type": "FLOAT"},
+                    {"name": "cons_conf_idx", "type": "FLOAT"},
+                    {"name": "euribor3m", "type": "FLOAT"},
+                    {"name": "nr_employed", "type": "INTEGER"},
+                    {"name": "y", "type": "STRING"},
+            ],
     dag=dag
 )
 
