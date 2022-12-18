@@ -17,7 +17,7 @@ In order solve the problems, as a Data Engineer our team are proposing some obje
 
 ### End-to-End Schema with Lambda Architecture
 
-![](docs/end-to-end-schema.png)
+![pipeline2](https://user-images.githubusercontent.com/85284506/208286062-1a7cfdba-2ddb-4961-914d-6fc2abb95ccb.png)
 
 ### Resources
 [Slides and Jobdesc](https://bit.ly/FinalProject-KuliDataWarrior)
