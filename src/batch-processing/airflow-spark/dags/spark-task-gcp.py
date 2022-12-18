@@ -131,8 +131,8 @@ bigquery_external_table_task = BigQueryCreateExternalTableOperator(
                     {"name": "cons_price_idx", "type": "FLOAT"},
                     {"name": "cons_conf_idx", "type": "FLOAT"},
                     {"name": "euribor3m", "type": "FLOAT"},
-                    {"name": "nr_employed", "type": "INTEGER"},
-                    {"name": "y", "type": "STRING"},
+                    {"name": "nr_employed", "type": "FLOAT"},
+                    {"name": "y", "type": "BOOLEAN"},
             ],
     dag=dag
 )
