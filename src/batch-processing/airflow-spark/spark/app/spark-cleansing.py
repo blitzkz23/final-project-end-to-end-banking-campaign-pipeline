@@ -5,11 +5,13 @@ from pyspark.sql import functions as F
 from pyspark.sql.functions import when
 from pyspark.sql.functions import regexp_replace
 
+import pandas as pd
+import numpy as np
+
 # Create spark session
 spark = (SparkSession
     .builder 
-    .master("local[*]") 
-    .appName("sparkcleansing") 
+    .appName("spark-cleansing") 
     .getOrCreate()
     )
 sc = spark.sparkContext
@@ -75,3 +77,5 @@ df_transform3.coalesce(1).write \
       .option("sep",";") \
       .mode("overwrite") \
       .csv("/usr/local/spark/resources/data/spark_output/")
+
+df_transform3.toPandas().to_csv("/usr/local/spark/resources/data/spark_output/bank-additional-full.csv", index=False)  
