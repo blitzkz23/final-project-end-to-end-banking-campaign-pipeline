@@ -74,7 +74,7 @@ print("SAVE DATA")
 print("######################################")
 df_transform3.coalesce(1).write \
       .option("header","true") \
-      .option("sep",";") \
+      .option("sep",",") \
       .mode("overwrite") \
       .csv("/usr/local/spark/resources/data/spark_output/")
 

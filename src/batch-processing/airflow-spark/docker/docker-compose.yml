@@ -55,6 +55,7 @@ services:
             - ../dags:/usr/local/airflow/dags #DAG folder
             - ../spark/app:/usr/local/spark/app #Spark Scripts (Must be the same path in airflow and Spark Cluster)
             - ../spark/resources:/usr/local/spark/resources #Resources folder (Must be the same path in airflow and Spark Cluster)
+            - ../dbt:/usr/local/dbt/bank_campaign_dwh # dbt folder
         ports:
             - "8282:8282"
         command: webserver

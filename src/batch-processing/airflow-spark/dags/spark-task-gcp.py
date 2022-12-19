@@ -125,9 +125,15 @@ bigquery_external_table_task = BigQueryCreateExternalTableOperator(
                     {"name": "nr_employed", "type": "FLOAT"},
                     {"name": "y", "type": "BOOLEAN"},
             ],
-    dag=dag
+    dag=dag,
+)
+
+run_dbt_task = BashOperator(
+    task_id="run_dbt",
+    bash_command="bash /usr/local/spark/resources/bin/run_dbt.sh ",
+    dag=dag,
 )
 
 end = DummyOperator(task_id="end", dag=dag)
 
-start >> ingest_bank_marketing_data >> unzip_file >> spark_cleanse_job >> local_to_gcs_task >> bigquery_external_table_task >> end
+start >> ingest_bank_marketing_data >> unzip_file >> spark_cleanse_job >> local_to_gcs_task >> bigquery_external_table_task >> run_dbt_task >> end
