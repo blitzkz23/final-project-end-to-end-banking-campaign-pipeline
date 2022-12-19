@@ -13,19 +13,10 @@ from airflow.contrib.operators.bigquery_operator import BigQueryCreateExternalTa
 # Parameters
 ###############################################
 spark_master = "spark://spark:7077"
-postgres_driver_jar = "/usr/local/spark/resources/jars/postgresql-9.4.1207.jar"
 
 csv_file = "/usr/local/spark/resources/data/bank-additional-full.csv"
 cleansed_file = "/usr/local/spark/resources/data/spark_output/bank-additional-full.csv"
 dataset_csv_file = "bank-additional-full.csv"
-
-postgres_db = "jdbc:postgresql://postgres/test"
-postgres_user = "test"
-postgres_pwd = "postgres"
-
-# PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
-# BUCKET = os.environ.get("GCP_GCS_BUCKET")
-# BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'rawdata')
 
 GOOGLE_APPLICATION_CREDENTIALS = "/home/.google/credentials/google_credentials.json"
 AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT = "google-cloud-platform://?extra__google_cloud_platform__key_path=/home/.google/credentials/google_credentials.json"
@@ -64,7 +55,7 @@ default_args = {
 
 dag = DAG(
         dag_id="spark-task-gcp", 
-        description="This DAG is a sample of integration between Spark and DB. It reads CSV files, load them into a Postgres DB and then read them from the same Postgres DB.",
+        description="This DAG is end-to-end batch processing data pipeline from ingestion to dbt",
         default_args=default_args, 
         schedule_interval=timedelta(1)
     )

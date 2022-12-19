@@ -5,7 +5,7 @@ sources:
       database: finalproject-kulidata
       schema: rawdata
       tables:
-        - name: bank_marketing
+        - name: bank_marketing_manual
 
 
 models:
