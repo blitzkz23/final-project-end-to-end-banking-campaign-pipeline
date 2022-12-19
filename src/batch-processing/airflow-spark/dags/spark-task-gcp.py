@@ -101,6 +101,7 @@ bigquery_external_table_task = BigQueryCreateExternalTableOperator(
     bucket=bucket_name,
     source_objects=[f"raw/{dataset_csv_file}"],
     destination_project_dataset_table="finalproject-kulidata.rawdata.bank_marketing",
+    skip_leading_rows=1,
     source_format="CSV",
     schema_fields=[
                     {"name": "age", "type": "INTEGER"},
