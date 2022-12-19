@@ -2,7 +2,7 @@
     This macro returns the description of the job 
 #}
 
-{% macro marital(column_name) -%}
+{% macro encode_marital(column_name) -%}
 
     case {{ column_name }}
         when 'married' then 1

@@ -9,10 +9,10 @@ final as (
     select
         --ID
         distinct id as id,
-        {{ job('job') }} as job_id,
-        {{ education('education') }} as education_id,
-        {{ marital('marital') }} as marital_id,
-        {{ contact('contact') }} as contact_id, 
+        {{ encode_job('job') }} as job_id,
+        {{ encode_education('education') }} as education_id,
+        {{ encode_marital('marital') }} as marital_id,
+        {{ encode_contact('contact') }} as contact_id, 
         education
         marital,
         contact,

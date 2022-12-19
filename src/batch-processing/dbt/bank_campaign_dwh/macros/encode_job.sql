@@ -2,7 +2,7 @@
     This macro returns the description of the job 
 #}
 
-{% macro job(column_name) -%}
+{% macro encode_job(column_name) -%}
 
     case {{ column_name }}
         when 'housemaid' then 1

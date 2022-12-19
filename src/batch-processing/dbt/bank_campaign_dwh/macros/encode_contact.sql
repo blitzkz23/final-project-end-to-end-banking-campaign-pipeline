@@ -2,7 +2,7 @@
     This macro returns the description of the job 
 #}
 
-{% macro contact(column_name) -%}
+{% macro encode_contact(column_name) -%}
 
     case {{ column_name }}
         when 'telephone' then 1

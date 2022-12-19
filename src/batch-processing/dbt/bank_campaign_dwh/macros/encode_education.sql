@@ -2,7 +2,7 @@
     This macro returns the description of the job 
 #}
 
-{% macro education(column_name) -%}
+{% macro encode_education(column_name) -%}
 
     case {{ column_name }}
         when 'basic' then 1
