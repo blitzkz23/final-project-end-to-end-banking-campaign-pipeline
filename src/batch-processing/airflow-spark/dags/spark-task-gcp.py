@@ -8,7 +8,7 @@ from airflow.exceptions import AirflowSkipException
 from datetime import datetime, timedelta
 
 from google.cloud import storage
-from airflow.contrib.operators.bigquery_operator import BigQueryCreateExternalTableOperator
+from airflow.contrib.operators.bigquery_operator import BigQueryOperator
 
 ###############################################
 # Parameters
@@ -26,6 +26,10 @@ project_id = "finalproject-kulidata"
 bucket_name = "finalproject-kulidata"
 dataset_id = "rawdata"
 
+query = """CREATE OR REPLACE EXTERNAL TABLE rawdata.bank_marketing
+OPTIONS(
+  format = 'CSV',
+  uris = ['gs://finalproject-kulidata/raw/bank-additional-full.csv']) """
 ###############################################
 # DAG Definition
 ###############################################
@@ -98,42 +102,16 @@ local_to_gcs_task = PythonOperator(
     dag=dag
 )
 
-bigquery_external_table_task = BigQueryCreateExternalTableOperator(
+bigquery_external_table_task = BigQueryOperator(
     task_id="bigquery_external_table_task",
-    bucket=bucket_name,
-    source_objects=[f"raw/{dataset_csv_file}"],
-    destination_project_dataset_table="finalproject-kulidata.rawdata.bank_marketing",
-    skip_leading_rows=1,
-    source_format="CSV",
-    schema_fields=[
-                    {"name": "age", "type": "INTEGER"},
-                    {"name": "job", "type": "STRING"},
-                    {"name": "marital", "type": "STRING"},
-                    {"name": "education", "type": "STRING"},
-                    {"name": "default", "type": "STRING"},
-                    {"name": "housing", "type": "STRING"},
-                    {"name": "loan", "type": "STRING"},
-                    {"name": "contact", "type": "STRING"},
-                    {"name": "month", "type": "STRING"},
-                    {"name": "day_of_week", "type": "STRING"},
-                    {"name": "duration", "type": "INTEGER"},
-                    {"name": "campaign", "type": "INTEGER"},
-                    {"name": "pdays", "type": "INTEGER"},
-                    {"name": "previous", "type": "INTEGER"},
-                    {"name": "poutcome", "type": "STRING"},
-                    {"name": "emp_var_rate", "type": "FLOAT"},
-                    {"name": "cons_price_idx", "type": "FLOAT"},
-                    {"name": "cons_conf_idx", "type": "FLOAT"},
-                    {"name": "euribor3m", "type": "FLOAT"},
-                    {"name": "nr_employed", "type": "FLOAT"},
-                    {"name": "y", "type": "BOOLEAN"},
-            ],
+    sql=query,
+    use_legacy_sql=False,
     dag=dag,
 )
 
 run_dbt_task = BashOperator(
     task_id="run_dbt",
-    bash_command=f"cd {dbt_loc}"
+    bash_command= f"cd {dbt_loc}"
         + " && dbt run --profiles-dir /usr/local/dbt",
     dag=dag,
 )
