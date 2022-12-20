@@ -57,6 +57,8 @@ df_transform2 = df_transform1.withColumn("education",
                                          .otherwise(df_transform1.education)
                                         )
 
+# Rename default column name into credit
+df_transform3 = df_transform2.withColumnRenamed("default", "credit")
 
 ####################################
 # Cleanse Null Data
@@ -64,7 +66,7 @@ df_transform2 = df_transform1.withColumn("education",
 print("######################################")
 print("CLEANSE NULL DATA")
 print("######################################")
-df_transform3 = df_transform2.na.drop("all")
+df_transform4 = df_transform3.na.drop("all")
 
 ####################################
 # Save Data
@@ -72,10 +74,10 @@ df_transform3 = df_transform2.na.drop("all")
 print("######################################")
 print("SAVE DATA")
 print("######################################")
-df_transform3.coalesce(1).write \
+df_transform4.coalesce(1).write \
       .option("header","true") \
       .option("sep",",") \
       .mode("overwrite") \
       .csv("/usr/local/spark/resources/data/spark_output/")
 
-df_transform3.toPandas().to_csv("/usr/local/spark/resources/data/spark_output/bank-additional-full.csv", index=False)  
+df_transform4.toPandas().to_csv("/usr/local/spark/resources/data/spark_output/bank-additional-full.csv", index=False)  
