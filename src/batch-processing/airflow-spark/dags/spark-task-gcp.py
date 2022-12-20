@@ -18,6 +18,7 @@ spark_master = "spark://spark:7077"
 csv_file = "/usr/local/spark/resources/data/bank-additional-full.csv"
 cleansed_file = "/usr/local/spark/resources/data/spark_output/bank-additional-full.csv"
 dataset_csv_file = "bank-additional-full.csv"
+dbt_loc = "/usr/local/dbt/bank_campaign_dwh"
 
 GOOGLE_APPLICATION_CREDENTIALS = "/home/.google/credentials/google_credentials.json"
 AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT = "google-cloud-platform://?extra__google_cloud_platform__key_path=/home/.google/credentials/google_credentials.json"
@@ -132,8 +133,8 @@ bigquery_external_table_task = BigQueryCreateExternalTableOperator(
 
 run_dbt_task = BashOperator(
     task_id="run_dbt",
-    bash_command="source /usr/local/spark/resources/bin/run_dbt.sh ",
-    
+    bash_command=f"cd {dbt_loc}"
+        + " && dbt run --profiles-dir /usr/local/dbt",
     dag=dag,
 )
 
