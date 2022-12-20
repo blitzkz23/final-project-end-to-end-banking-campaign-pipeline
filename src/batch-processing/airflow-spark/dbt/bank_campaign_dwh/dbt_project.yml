@@ -3,7 +3,7 @@
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
 name: 'bank_campaign_dwh'
-version: '0.2.1'
+version: '1.0.0'
 config-version: 2
 
 # This setting configures which "profile" dbt uses for this project.
@@ -22,8 +22,7 @@ snapshot-paths: ["snapshots"]
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
   - "target"
-  - "dbt-packages"
-
+  - "dbt_modules"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
@@ -35,9 +34,9 @@ models:
   bank_campaign_dwh:
     # Config indicated by + and applies to all files under models/example/
     staging:
-      +materialized: view
+      materialized: view
     core:
-      +materialized: table
+      materialized: table
 
 vars:
   job_type_values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12

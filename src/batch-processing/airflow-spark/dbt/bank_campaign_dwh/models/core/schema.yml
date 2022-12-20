@@ -4,8 +4,6 @@ models:
   - name: fact_bank
     description: "a"
     columns:
-      - name: id
-        description: "Fact table primary key"    
       - name: job_id
         description: "Identifier for job types"
         tests:

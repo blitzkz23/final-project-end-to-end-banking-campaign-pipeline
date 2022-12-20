@@ -1,6 +1,5 @@
 #!/bin/bash
-cd /usr/local/dbt/bank_campaign_dwh/
-echo "tai"
+cd /usr/local/dbt
 echo $(pwd)
 ls
 dbt run

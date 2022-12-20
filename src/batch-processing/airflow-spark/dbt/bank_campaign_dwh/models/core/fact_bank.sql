@@ -8,7 +8,6 @@ final as (
 
     select
         --ID
-        distinct id as id,
         {{ encode_job('job') }} as job_id,
         {{ encode_education('education') }} as education_id,
         {{ encode_marital('marital') }} as marital_id,
