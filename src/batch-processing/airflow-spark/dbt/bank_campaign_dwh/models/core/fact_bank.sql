@@ -7,17 +7,22 @@ with bank_data as (
 final as (
 
     select
-        --ID
+        distinct id as id, 
         {{ encode_job('job') }} as job_id,
         {{ encode_education('education') }} as education_id,
         {{ encode_marital('marital') }} as marital_id,
         {{ encode_contact('contact') }} as contact_id, 
-        `default` as credit,
+        {{ encode_credit('credit') }} as credit_id,
         age,
         month,
         day_of_week as day,
         housing as housing_loan,
         loan as personal_loan,
+        emp_var_rate,
+        cons_price_idx,
+        cons_conf_idx,
+        euribor3m,
+        nr_employed,
         y as subscribe,
 
     from bank_data
