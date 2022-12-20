@@ -4,6 +4,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+from airflow.exceptions import AirflowSkipException
 from datetime import datetime, timedelta
 
 from google.cloud import storage
@@ -131,7 +132,8 @@ bigquery_external_table_task = BigQueryCreateExternalTableOperator(
 
 run_dbt_task = BashOperator(
     task_id="run_dbt",
-    bash_command="bash /usr/local/spark/resources/bin/run_dbt.sh ",
+    bash_command="source /usr/local/spark/resources/bin/run_dbt.sh ",
+    
     dag=dag,
 )
 

@@ -63,6 +63,8 @@ RUN set -ex \
     && pip install pyOpenSSL \
     && pip install ndg-httpsclient \
     && pip install pyasn1 \
+    && pip install dbt-core \
+    && pip install dbt-bigquery \
     && pip install -r requirements.txt \
     && pip install --use-feature=2020-resolver apache-airflow[crypto,celery,postgres,hive,jdbc,mysql,ssh${AIRFLOW_DEPS:+,}${AIRFLOW_DEPS}]==${AIRFLOW_VERSION} \
     && pip install 'redis>=2.10.5,<3' \
@@ -132,46 +134,6 @@ RUN chown -R airflow: ${AIRFLOW_HOME}
 RUN chmod +x entrypoint.sh
 
 EXPOSE 8080 5555 8793
-
-# --------------------------------------------
-
-USER root
-RUN apt-get update -qq && apt-get install vim -qqq
-# git gcc g++ -qqq
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Ref: https://airflow.apache.org/docs/docker-stack/recipes.html
-
-SHELL ["/bin/bash", "-o", "pipefail", "-e", "-u", "-x", "-c"]
-
-ARG CLOUD_SDK_VERSION=322.0.0
-# ARG CLOUD_SDK_VERSION=403.0.0
-ENV GCLOUD_HOME=/home/google-cloud-sdk
-
-ENV PATH="${GCLOUD_HOME}/bin/:${PATH}"
-
-RUN DOWNLOAD_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz" \
-    && TMP_DIR="$(mktemp -d)" \
-    && curl -fL "${DOWNLOAD_URL}" --output "${TMP_DIR}/google-cloud-sdk.tar.gz" \
-    && mkdir -p "${GCLOUD_HOME}" \
-    && tar xzf "${TMP_DIR}/google-cloud-sdk.tar.gz" -C "${GCLOUD_HOME}" --strip-components=1 \
-    && "${GCLOUD_HOME}/install.sh" \
-       --bash-completion=false \
-       --path-update=false \
-       --usage-reporting=false \
-       --quiet \
-    && rm -rf "${TMP_DIR}" \
-    && gcloud --version
-
-WORKDIR $AIRFLOW_HOME
-
-COPY scripts scripts
-RUN chmod +x scripts
-
-USER $AIRFLOW_UID
-# --------------------------------- 
 
 USER airflow
 WORKDIR ${AIRFLOW_HOME}
