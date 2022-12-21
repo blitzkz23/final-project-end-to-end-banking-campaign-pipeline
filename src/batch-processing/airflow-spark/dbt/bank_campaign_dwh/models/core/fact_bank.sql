@@ -16,6 +16,8 @@ final as (
         age,
         month,
         day_of_week as day,
+        duration,
+        campaign,
         housing as housing_loan,
         loan as personal_loan,
         emp_var_rate,
