@@ -14,8 +14,9 @@ final as (
         {{ encode_contact('contact') }} as contact_id, 
         {{ encode_credit('credit') }} as credit_id,
         age,
-        month,
-        day_of_week as day,
+        concat(
+            cast(extract(YEAR FROM parse_date('%Y%m', cast(month as string))) as string),"-",cast(extract(MONTH FROM parse_date('%Y%m', cast(month as string))) as STRING)
+        ) as date,
         duration,
         campaign,
         housing as housing_loan,

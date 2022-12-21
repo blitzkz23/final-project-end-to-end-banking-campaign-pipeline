@@ -30,6 +30,16 @@ query = """CREATE OR REPLACE EXTERNAL TABLE rawdata.bank_marketing
 OPTIONS(
   format = 'CSV',
   uris = ['gs://finalproject-kulidata/raw/bank-additional-full.csv']) """
+
+query2 = """CREATE OR REPLACE TABLE
+  finalproject-kulidata.bank_campaign_dwh.fact_bank_partitioned
+PARTITION BY 
+  RANGE_BUCKET(month,GENERATE_ARRAY(1,12,1))
+CLUSTER BY
+  job_id
+AS
+  SELECT * FROM finalproject-kulidata.bank_campaign_dwh.fact_bank"""
+
 ###############################################
 # DAG Definition
 ###############################################
@@ -116,6 +126,13 @@ run_dbt_task = BashOperator(
     dag=dag,
 )
 
+bigquery_partition_cluster_table_task = BigQueryOperator(
+    task_id="bigquery_partition_cluster_table_task",
+    sql=query2,
+    use_legacy_sql=False,
+    dag=dag,
+)
+
 end = DummyOperator(task_id="end", dag=dag)
 
-start >> ingest_bank_marketing_data >> unzip_file >> spark_cleanse_job >> local_to_gcs_task >> bigquery_external_table_task >> run_dbt_task >> end
+start >> ingest_bank_marketing_data >> unzip_file >> spark_cleanse_job >> local_to_gcs_task >> bigquery_external_table_task >> run_dbt_task >> bigquery_partition_cluster_table_task >> end
