@@ -1,6 +1,7 @@
 ## General Installation Guide/Usage
 
 ### Batch Processing
+====================
 - Prerequisite:
 
     A. Python 3: [Install Here](https://www.python.org/downloads/)
@@ -16,8 +17,7 @@
 - Project Guide:
 
     A. Clone this project
-    
-        
+            
         git clone https://github.com/blitzkz23/final-project-end-to-end-banking-campaign-pipeline.git
         
     B. Open this project in terminal and change directory until docker-airflow folder, also build the docker file
@@ -65,3 +65,4 @@
         dbt run
 
 ### Stream Processing
+=====================
