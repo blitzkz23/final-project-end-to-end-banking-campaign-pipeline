@@ -1,0 +1,27 @@
+{
+    "namespace": "com.naufaldystd.bitcoin_price",
+    "name": "AvroValue",
+    "type": "record",
+    "fields": [
+        {
+            "name": "age",
+            "type": "int"
+        },
+        {
+            "name": "job",
+            "type": "string"
+        },
+        {
+            "name": "marital",
+            "type": "string"
+        },
+        {
+            "name": "education",
+            "type": "string"
+        },
+        {
+            "name": "y",
+            "type": "string"
+        }
+    ]
+}

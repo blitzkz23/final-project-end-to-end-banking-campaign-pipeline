@@ -17,6 +17,7 @@ final as (
         concat(
             cast(extract(YEAR FROM parse_date('%Y%m', cast(month as string))) as string),"-",cast(extract(MONTH FROM parse_date('%Y%m', cast(month as string))) as STRING)
         ) as date,
+        day_of_week as day,
         duration,
         campaign,
         housing as housing_loan,

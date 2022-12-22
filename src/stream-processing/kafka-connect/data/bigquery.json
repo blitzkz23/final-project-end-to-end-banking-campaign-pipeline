@@ -1,0 +1,11 @@
+{
+    "name":"bigquery-sink",
+    "config":{
+        "connector.class": "com.wepay.kafka.connect.bigquery.BigQuerySinkConnector",
+        "topics": "orders_spooldir_00",
+        "project": "FinalProject-kulidata",
+        "defaultDataset": "stream",
+        "autoCreateTables": "true",
+        "keyfile": "usr/local/kafka/data/google_credentials.json"
+    }
+}

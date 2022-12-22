@@ -1,0 +1,16 @@
+{
+    "name": "csv-source",
+    "config": {
+        "connector.class" : "com.github.jcustenborder.kafka.connect.spooldir.SpoolDirCsvSourceConnector",
+        "input.path": "/usr/local/kafka/data/unprocessed",
+        "finished.path": "/usr/local/kafka/data/processed",
+        "error.path": "/usr/local/kafka/data/error",
+        "input.file.pattern": ".*\\.csv",
+        "topic" : "csv_spooldir_00",
+        "schema.generation.key.fields":"age",
+        "csv.first.row.as.header":"true",
+        "transforms":"castTypes",
+        "transforms.castTypes.type":"org.apache.kafka.connect.transforms.Cast$Value",
+        "transforms.castTypes.spec":"age:int32,job:string,marital:string,education:string,default:string,housing:string,loan:string,contact:string,month:string,day_of_week:string,duration:int32,campaign:int32,pdays:int32,previous:int32,poutcome:string,emp_var_rate:float32,cons_price_idx:float32,cons_conf_idx:float32,euribor3m:float32,nr_employed:int64,y:string"
+    }
+}

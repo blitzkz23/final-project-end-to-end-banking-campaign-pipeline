@@ -1,0 +1,3 @@
+pip3 install avro-python3
+pip3 install requests
+pip3 install confluent-kafka

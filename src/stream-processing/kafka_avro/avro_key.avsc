@@ -1,0 +1,11 @@
+{
+    "namespace": "com.kulidata.bankmarketing",
+    "name": "AvroKey",
+    "type": "record",
+    "fields": [
+        {
+            "name": "age",
+            "type": "int"
+        }
+    ]
+}
