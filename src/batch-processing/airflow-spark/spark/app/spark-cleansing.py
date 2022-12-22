@@ -60,31 +60,13 @@ df_transform2 = df_transform1.withColumn("education",
 # Rename default column name into credit
 df_transform3 = df_transform2.withColumnRenamed("default", "credit")
 
-# Add year to month 
-df_transform4 = df_transform3.withColumn("month",
-                                         when(df_transform3.month.endswith('jan'), regexp_replace(df_transform3.month, 'jan', '200801')) \
-                                            .when(df_transform3.month.endswith('feb'), regexp_replace(df_transform3.month, 'feb', '200802')) \
-                                                .when(df_transform3.month.endswith('mar'), regexp_replace(df_transform3.month, 'mar', '200803')) \
-                                                    .when(df_transform3.month.endswith('apr'), regexp_replace(df_transform3.month, 'apr', '200804')) \
-                                                        .when(df_transform3.month.endswith('may'), regexp_replace(df_transform3.month, 'may', '200805')) \
-                                                            .when(df_transform3.month.endswith('jun'), regexp_replace(df_transform3.month, 'jun', '200806')) \
-                                                                .when(df_transform3.month.endswith('jul'), regexp_replace(df_transform3.month, 'jul', '200807')) \
-                                                                    .when(df_transform3.month.endswith('aug'), regexp_replace(df_transform3.month, 'aug', '200808')) \
-                                                                        .when(df_transform3.month.endswith('sep'), regexp_replace(df_transform3.month, 'sep', '200809')) \
-                                                                            .when(df_transform3.month.endswith('oct'), regexp_replace(df_transform3.month, 'oct', '200810')) \
-                                                                                .when(df_transform3.month.endswith('nov'), regexp_replace(df_transform3.month, 'nov', '200811')) \
-                                                                                    .when(df_transform3.month.endswith('dec'), regexp_replace(df_transform3.month, 'dec', '200812')) \
-                                                                                        .otherwise(df_transform3.month)
-                                         
-                                         )
-
 ####################################
 # Cleanse Null Data
 ####################################
 print("######################################")
 print("CLEANSE NULL DATA")
 print("######################################")
-df_transform5 = df_transform4.na.drop("all")
+df_transform4 = df_transform3.na.drop("all")
 
 ####################################
 # Save Data
@@ -92,10 +74,10 @@ df_transform5 = df_transform4.na.drop("all")
 print("######################################")
 print("SAVE DATA")
 print("######################################")
-df_transform5.coalesce(1).write \
+df_transform4.coalesce(1).write \
       .option("header","true") \
       .option("sep",",") \
       .mode("overwrite") \
       .csv("/usr/local/spark/resources/data/spark_output/")
 
-df_transform5.toPandas().to_csv("/usr/local/spark/resources/data/spark_output/bank-additional-full.csv", index=False)  
+df_transform4.toPandas().to_csv("/usr/local/spark/resources/data/spark_output/bank-additional-full.csv", index=False)  
