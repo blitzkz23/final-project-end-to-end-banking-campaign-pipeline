@@ -37,13 +37,13 @@
     D. Open the airflow webserver UI on external-IP:8282 / localhost:8282 (if you have ports forwarding)
     
     E. Configure spark connection acessing airflow web UI http://localhost:8282 and going to Connections
-       ![](./docs/airflow_connections_menu.png "Airflow Connections")
+            ![](./docs/airflow_connections_menu.png "Airflow Connections")
 
     F. Edit the spark_default connection inserting `spark://spark` in Host field and Port `7077`
-        ![](./docs/airflow_spark_connection.png "Airflow Spark connection")
+            ![](./docs/airflow_spark_connection.png "Airflow Spark connection")
 
     G. Also edit the bigquery_default connection, and insert your project name:
-        ![](./docs/airflow_bigquery_connection.png "Airflow BigQuery connection")
+            ![](./docs/airflow_bigquery_connection.png "Airflow BigQuery connection")
 
     H. Airflow DAGs for batch processing is ready to go! included task on the DAG are up to uploading data from gcs to BigQuery table, unfortunately the dbt transformation are not included yet on the DAGs because of the dependencies conflict.  But afraid not its simple enough, follow the next step.
 
