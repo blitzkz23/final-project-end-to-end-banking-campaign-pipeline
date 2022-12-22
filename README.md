@@ -21,7 +21,7 @@ In order solve the problems, as a Data Engineer our team are proposing some obje
 
 ### Reproducibility
 
-In order to reproduce the dependencies and overall environment used on this project refer to this guide [README.MD]()
+In order to reproduce the dependencies and overall environment used on this project refer to this guide [README.MD](https://github.com/blitzkz23/final-project-end-to-end-banking-campaign-pipeline/blob/main/src/README.MD)
 
 ### Resources
 [Slides and Jobdesc](https://bit.ly/FinalProject-KuliDataWarrior)
