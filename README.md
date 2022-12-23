@@ -27,9 +27,9 @@ In order to reproduce the dependencies and overall environment used on this proj
 
 Access the dashboard [here](https://datastudio.google.com/u/0/reporting/b3ef6967-6deb-4574-a591-9444d1a99a8a/page/tEnnC)
 
-![Dashboard 1](docs/dashboard1.png)
+![Dashboard 1](docs/new_dashboard1.png)
 
-![Dashboard 2](docs/dashboard2.png)
+![Dashboard 2](docs/new_dashboard2.png)
 
 ### Resources
 [Slides and Jobdesc](https://bit.ly/FinalProject-KuliDataWarrior)
