@@ -2,6 +2,7 @@
 # AUTHOR: Thiago Cordon Rodrigues
 # DESCRIPTION: Airflow container with JAVA 8 and SPARK binaries
 # BUILD: docker build --rm -t docker-airflow-spark:latest .
+# docker build --rm -t docker-airflow-spark:2.2.5_3.1.2 .
 # BASED ON: https://github.com/puckel/docker-airflow
 
 # stretch debian version allows JAVA JDK 8
@@ -46,7 +47,7 @@ RUN set -ex \
         $buildDeps \
         freetds-bin \
         build-essential \
-        default-libmysqlcd ent-dev \
+        default-libmysqlclient-dev \
         apt-utils \
         curl \
         rsync \
