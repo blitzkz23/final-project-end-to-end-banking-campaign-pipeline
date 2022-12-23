@@ -34,9 +34,9 @@ OPTIONS(
 query2 = """CREATE OR REPLACE TABLE
   finalproject-kulidata.bank_campaign_dwh.fact_bank_partitioned
 PARTITION BY 
-  RANGE_BUCKET(month,GENERATE_ARRAY(1,12,1))
+  RANGE_BUCKET(job_id,GENERATE_ARRAY(1,12,1))
 CLUSTER BY
-  job_id
+  education_id
 AS
   SELECT * FROM finalproject-kulidata.bank_campaign_dwh.fact_bank"""
 
