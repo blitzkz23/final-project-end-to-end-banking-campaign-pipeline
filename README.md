@@ -1,4 +1,4 @@
-# Bank Marketing Campaign Subscription End-to-End Data Pipeline
+# Bank Marketing Campaign's Subscription End-to-End Data Pipeline
 
 ## Bussiness Understanding
 
