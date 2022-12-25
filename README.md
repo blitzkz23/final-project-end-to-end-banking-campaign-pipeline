@@ -10,7 +10,7 @@ From said back story, we can conclude that the bank want to increase the efficie
 
 ### Goals
 
-In order solve the problems, as a Data Engineer our team are proposing some objective in order to pull of that goals as follows:
+In order solve the problems, as a Data Engineer our team are proposing some objective in order to pull off that goals, as follows:
 
 1. Design end-to-end data pipeline with Lambda Architecture, so the bussiness intellegence/analyst could choose between whether to use batched data or real time streamed data.
 2. Create analytics dashboard based on data from the analytics database (data warehouse) and derive some insight from it.
